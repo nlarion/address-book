@@ -4,10 +4,13 @@
 // };
 
 
-function Contact(firstName, lastName, addresses) {
+function Contact(firstName, lastName, street, city, state, zip) {
   this.firstName = firstName;
   this.lastName = lastName;
-  this.addresses = [];
+  this.street = street;
+  this.city = city;
+  this.state = state;
+  this.zip = zip;
 }
 
 Contact.prototype.fullName = function() {
@@ -17,14 +20,14 @@ Contact.prototype.fullName = function() {
 $(document).ready(function() {
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
-    
+
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedStreetAddress = $("input#new-street-address").val();
     var inputtedCity = $("input#new-state").val();
     var inputtedState = $("input#new-city").val();
     var inputtedZip = $("input#new-zip").val();
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, [inputtedStreetAddress, inputtedCity, inputtedState, inputtedZip]);
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedStreetAddress, inputtedCity, inputtedState, inputtedZip);
 
     $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
 
@@ -40,7 +43,7 @@ $(document).ready(function() {
       $("#show-contact h2").text(newContact.fullName());
       $(".first-name").text(newContact.firstName);
       $(".last-name").text(newContact.lastName);
-      $(".street-address").text(newContact.street-address);
+      $(".street-address").text(newContact.street);
       $(".state").text(newContact.state);
       $(".city").text(newContact.city);
       $(".zip").text(newContact.zip);
