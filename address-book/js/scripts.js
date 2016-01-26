@@ -7,9 +7,7 @@
 function Contact(firstName, lastName, street, city, state) {
   this.firstName = firstName;
   this.lastName = lastName;
-  this.street = street;
-  this.city = city;
-  this.state = state;
+  this.address = [];
 }
 
 function Address(street, city, state) {
@@ -22,13 +20,13 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
 
-// Address.prototype.fullAddress = function() {
-//   return this.street + " " + this.city + " " + this.state;
-// }
+Address.prototype.fullAddress = function() {
+  return this.street + " " + this.city + " " + this.state;
+}
 
 $(document).ready(function() {
   $("#newAddress").click(function(){
-    $("#addresses").append("<div class='contactAddress' id='contactAddress'><div class='form-group'><label for='new-street-address'>Street Address</label><input type='text' class='form-control' id='new-street-address'></div><div class='form-group'><label for='new-city'>City</label><input type='text' class='form-control' id='new-city'></div><div class='form-group'><label for='new-state'>State</label><input type='text' class='form-control' id='new-state'></div>");
+    $("#addresses").append("<div class='contactAddress'><div class='form-group'><label for='new-street-address'>Street Address</label><input type='text' class='form-control' id='new-street-address'></div><div class='form-group'><label for='new-city'>City</label><input type='text' class='form-control' id='new-city'></div><div class='form-group'><label for='new-state'>State</label><input type='text' class='form-control' id='new-state'></div>");
   });
 
 
@@ -36,10 +34,16 @@ $(document).ready(function() {
     event.preventDefault();
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
-    var inputtedStreetAddress = $("input#new-street-address").val();
-    var inputtedCity = $("input#new-state").val();
-    var inputtedState = $("input#new-city").val();
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedStreetAddress, inputtedCity, inputtedState);
+    var newContact = new Contact(inputtedFirstName, inputtedLastName);
+
+    $(".contactAddress").each(function(){
+      var inputtedStreetAddress = $(this).find("input#new-street-address").val();
+      var inputtedCity = $(this).find("input#new-state").val();
+      var inputtedState = $(this).find("input#new-city").val();
+      var newAddress = new Address(inputtedStreetAddress, inputtedCity, inputtedState);
+      newContact.address.push(newAddress);
+      console.log(newAddress);
+    });
 
     $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
 
@@ -50,9 +54,11 @@ $(document).ready(function() {
       $("#show-contact h2").text(newContact.fullName());
       $(".first-name").text(newContact.firstName);
       $(".last-name").text(newContact.lastName);
-      $(".street-address").text(newContact.street);
-      $(".state").text(newContact.state);
-      $(".city").text(newContact.city);
+      $("ul#addresses").text("");
+      newContact.address.forEach(function(address){
+        $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
+      });
+      console.log(newContact);
     });
   });
 });
