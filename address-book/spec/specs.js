@@ -17,3 +17,15 @@ describe('Contact', function(){
     expect(testContact.fullName()).to.equal("Martha Stewart");
   });
 });
+describe('Address', function(){
+  it("creates new address with given properties", function(){
+  var testAddress = new Address("123 St","Portland","Oregon");
+  expect(testAddress.street).to.equal("123 St");
+  expect(testAddress.city).to.equal("Portland");
+  expect(testAddress.state).to.equal("Oregon");
+  });
+  // it("adds fullAddress method to all addresses", function(){
+  //   var testAddress = new Address("123 Main St, Portland, Oregon");
+  //   expect(testAddress.fullAddress()).to.equal("123 Main St, Portland, Oregon");
+  // });
+});
