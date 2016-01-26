@@ -58,8 +58,8 @@ $(document).ready(function() {
       newContact.address.forEach(function(address){
         $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
       });
-      console.log(newContact);
     });
+    $('.contactAddress').not($(".contactAddress")[0]).remove();
   });
 });
 
