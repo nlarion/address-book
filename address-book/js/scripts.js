@@ -27,6 +27,7 @@ Address.prototype.fullAddress = function() {
 $(document).ready(function() {
   $("#newAddress").click(function(){
     $("#addresses").append("<div class='contactAddress'><div class='form-group'><label for='new-street-address'>Street Address</label><input type='text' class='form-control' id='new-street-address'></div><div class='form-group'><label for='new-city'>City</label><input type='text' class='form-control' id='new-city'></div><div class='form-group'><label for='new-state'>State</label><input type='text' class='form-control' id='new-state'></div>");
+    $(".contactAddress").last().hide().fadeIn(500);
   });
 
 
